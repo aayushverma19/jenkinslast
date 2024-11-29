@@ -1,0 +1,63 @@
+pipeline {
+    agent any
+    environment {
+        AWS_ACCESS_KEY = credentials('Access-key-ID') 
+        AWS_SECRET_KEY = credentials('Secret-access-key') 
+    }
+
+    stages {
+        stage('updateSystem') {
+            steps {
+                sh '''
+                    sudo apt update
+                '''
+            }
+        }
+
+        stage('install_unzip') {
+            steps {
+                sh '''
+                    sudo apt install unzip -y
+                '''
+            }
+        }
+
+        stage('install_PythonAndLibrary') {
+            steps {
+                sh '''
+                    sudo apt install python3-pip -y
+                    sudo apt install python3-boto3 -y
+                    pip list | grep boto3
+                '''
+            }
+        }
+        stage('install_aws_cli') {
+            steps {
+                 script {
+                    def awsInstalled = sh(script: 'aws --version', returnStatus: true)
+                     if (awsInstalled != 0) {
+                            echo 'AWS CLI not found. Installing...'
+                      sh '''
+                            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+                            unzip awscliv2.zip
+                            sudo ./aws/install
+                        '''
+                            } else {
+                                echo 'AWS CLI is already installed.'
+                            }
+                        }
+                    }
+                }
+        stage('configureAWS') {
+            steps {
+                sh '''
+                    echo "export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}" | sudo tee -a /etc/profile
+                    echo "export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY}" | sudo tee -a /etc/profile
+                    . /etc/profile
+                    echo $AWS_ACCESS_KEY_ID
+                    echo $AWS_SECRET_ACCESS_KEY
+                '''
+            }
+        }
+    }
+}
