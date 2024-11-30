@@ -6,9 +6,9 @@ def call( String branch , String repoUrl ) {
           ansible 'ansible'
       }
       environment {
-          ANSIBLE_PLAY_CR_PATH = "${WORKSPACE}/tool/toolbook.yml"
-          ANSIBLE_PLAY_DT_PATH = "${WORKSPACE}/tool/deletedata.yml"
-          ANSIBLE_INVENTORY_PATH = "${WORKSPACE}/tool/aws_ec2.yml"
+          ANSIBLE_PLAY_CR_PATH = "${WORKSPACE}/mytool/toolbook.yml"
+          ANSIBLE_PLAY_DT_PATH = "${WORKSPACE}/mytool/deletedata.yml"
+          ANSIBLE_INVENTORY_PATH = "${WORKSPACE}/mytool/aws_ec2.yml"
       }
   
       parameters {
