@@ -8,11 +8,11 @@ pipeline {
     }
 
      environment {
-        ANSIBLE_PLAY_PATH = "${WORKSPACE}/assignment5/toolbook.yml"
-        ANSIBLE_INVENTORY_PATH = "${WORKSPACE}/assignment5/aws_ec2.yml"
-        ANSIBLE_KEY = "${WORKSPACE}/assignment5/ninja.pem"
+        ANSIBLE_PLAY_PATH = "${WORKSPACE}/tool/toolbook.yml"
+        ANSIBLE_INVENTORY_PATH = "${WORKSPACE}/tool/aws_ec2.yml"
+        ANSIBLE_KEY = "${WORKSPACE}/tool/ninja.pem"
         REMOTE_USER = "ubuntu"
-        //ANSIBLE_SSH_ARGS='-o StrictHostKeyChecking=no' ansible -m ping -i /var/lib/jenkins/workspace/project-1/assignment5/aws_ec2.yml all --private-key /var/lib/jenkins/workspace/project-1/assignment5/ninja.pem -u root
+        //ANSIBLE_SSH_ARGS='-o StrictHostKeyChecking=no' ansible -m ping -i /var/lib/jenkins/workspace/project-1/tool/aws_ec2.yml all --private-key /var/lib/jenkins/workspace/project-1/tool/ninja.pem -u root
     }
     
     stages{
