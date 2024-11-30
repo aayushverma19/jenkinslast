@@ -19,7 +19,7 @@ pipeline {
             steps{
                 echo "git......!! ${WORKSPACE} "
                 git branch: 'main' ,
-                url: 'https://github.com/aayushverma191/jenkins_six.git'
+                url: 'https://github.com/aayushverma19/jenkinslast.git'
             }
         }
         stage('User_Approval'){
