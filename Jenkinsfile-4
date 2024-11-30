@@ -1,10 +1,5 @@
 pipeline {
     agent any
-    environment {
-        AWS_ACCESS_KEY = credentials('Access-key-ID') 
-        AWS_SECRET_KEY = credentials('Secret-access-key') 
-    }
-
     stages {
         stage('updateSystem') {
             steps {
@@ -48,16 +43,6 @@ pipeline {
                         }
                     }
                 }
-        stage('configureAWS') {
-            steps {
-                sh '''
-                    echo "export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}" | sudo tee -a /etc/profile
-                    echo "export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY}" | sudo tee -a /etc/profile
-                    . /etc/profile
-                    echo $AWS_ACCESS_KEY_ID
-                    echo $AWS_SECRET_ACCESS_KEY
-                '''
-            }
-        }
+
     }
 }
